@@ -72,7 +72,7 @@ ZDL.Icon = ZDL.Icon || {};
                             pic._scaleX=r_w;
                             pic._scaleY=r_w;
                         }else{
-                            pic._x=0-(i_w-g_w)/2;
+                            pic._x=0-(i_w*r_h/100-g_w)/2;
                             pic._y=0;
                             pic._scaleX=r_h;
                             pic._scaleY=r_h;
