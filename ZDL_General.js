@@ -48,11 +48,11 @@ ZDL.Icon = ZDL.Icon || {};
     };
     Game_Interpreter.prototype.pluginCommand = function(command, args) {
         ZDL.Core.Game_Interpreter_pluginCommand.call(this, command, args);
-        console.log("debug:"+command+", "+args+"");
+        //console.log("debug:"+command+", "+args+"");
         if(command=="stretchPictureFullScreen"&&args.length>0){
             var str = args[0];
-            if(str[0]=='['){
-                var arr = eval(str);
+            if(str[0]=='['&&str[str.length-1]==']'){
+                var arr = JSON.parse(str);
                 var keep_ratio = arr[1]==true;
                 var pic = $gameScreen._pictures[arr[0]];
                 ImageManager.loadPicture(pic._name).addLoadListener(function(bitmap){
