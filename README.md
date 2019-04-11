@@ -17,6 +17,7 @@ This plugin scales an image to the size of game screen with or without keeping t
 * Click "OK" to confirm
 # License
 This plugin is released under [MIT License](http://en.wikipedia.org/wiki/MIT_License), and can be used in commercial or non-commercial games.
+
 See [LICENSE](https://github.com/nybbs2003/ZDL_General/blob/master/LICENSE) for detail. 
 
 Happy RPG Making~!
