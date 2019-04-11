@@ -39,7 +39,7 @@ ZDL.Icon = ZDL.Icon || {};
 *-Stretch the picture of given number to fullscreen,if <i>keepRatio</i> is true, the picture will be cut to keep ratio.
 */
 (function() {
-	ZDL.Core.Init = Game_System.prototype.initialize;
+    ZDL.Core.Init = Game_System.prototype.initialize;
     ZDL.Core.Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
     Game_System.prototype.initialize = function()
     {
@@ -50,43 +50,43 @@ ZDL.Icon = ZDL.Icon || {};
         ZDL.Core.Game_Interpreter_pluginCommand.call(this, command, args);
         console.log("debug:"+command+", "+args+"");
         if(command=="stretchPictureFullScreen"&&args.length>0){
-	        var str = args[0];
-	        if(str[0]=='['){
-	        	var arr = eval(str);
-	        	var keep_ratio = arr[1]==true;
-	        	var pic = $gameScreen._pictures[arr[0]];
-	        	ImageManager.loadPicture(pic._name).addLoadListener(function(bitmap){
-					console.log(bitmap);
-		        	var i_w = bitmap.width;
-		        	var i_h = bitmap.height;
-		        	var g_w = Graphics.width;
-		        	var g_h = Graphics.height;
-		        	var r_w = g_w / i_w * 100;
-		        	var r_h = g_h / i_h * 100;
-	        		//console.log("debug: "+"i_w="+i_w+", i_h="+i_h+", g_w="+g_w+", g_h="+g_h+", r_w="+r_w+", r_h="+r_h);
-		        	if(keep_ratio){
-		        		//console.log("img scale keep ratio");
-		        		if(r_w > r_h){
-			        		pic._x=0;
-			        		pic._y=0-(i_h-g_h)/2;
-			        		pic._scaleX=r_w;
-			        		pic._scaleY=r_w;
-		        		}else{
-			        		pic._x=0-(i_w-g_w)/2;
-			        		pic._y=0;
-			        		pic._scaleX=r_h;
-			        		pic._scaleY=r_h;
-		        		}
-		        	}else{
-		        		//console.log("img scale not keep ratio");
-		        		pic._x=0;
-		        		pic._y=0;
-		        		pic._scaleX=r_w;
-		        		pic._scaleY=r_h;
-		        	}
+            var str = args[0];
+            if(str[0]=='['){
+                var arr = eval(str);
+                var keep_ratio = arr[1]==true;
+                var pic = $gameScreen._pictures[arr[0]];
+                ImageManager.loadPicture(pic._name).addLoadListener(function(bitmap){
+                    // console.log(bitmap);
+                    var i_w = bitmap.width;
+                    var i_h = bitmap.height;
+                    var g_w = Graphics.width;
+                    var g_h = Graphics.height;
+                    var r_w = g_w / i_w * 100;
+                    var r_h = g_h / i_h * 100;
+                    //console.log("debug: "+"i_w="+i_w+", i_h="+i_h+", g_w="+g_w+", g_h="+g_h+", r_w="+r_w+", r_h="+r_h);
+                    if(keep_ratio){
+                        //console.log("img scale keep ratio");
+                        if(r_w > r_h){
+                            pic._x=0;
+                            pic._y=0-(i_h-g_h)/2;
+                            pic._scaleX=r_w;
+                            pic._scaleY=r_w;
+                        }else{
+                            pic._x=0-(i_w-g_w)/2;
+                            pic._y=0;
+                            pic._scaleX=r_h;
+                            pic._scaleY=r_h;
+                        }
+                    }else{
+                        //console.log("img scale not keep ratio");
+                        pic._x=0;
+                        pic._y=0;
+                        pic._scaleX=r_w;
+                        pic._scaleY=r_h;
+                    }
 
-	        	});
-	        }
+                });
+            }
         }
        
     };
