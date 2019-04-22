@@ -47,6 +47,8 @@ ZDL.Icon = ZDL.Icon || {};
 *-Top/Left is negetive, and Right/Down is positive.
 *-example : "movePictureByRatio 1 0 R R X" will make image 1 right aligned (right edge to the right side of scene with 0 distance)
 *
+*autoSetBackground index
+*-Make the specified image scale to cover fullscreen, while keeping the aspect ratio.
 */
 (function() {
     ZDL.Core.Init = Game_System.prototype.initialize;
@@ -54,7 +56,6 @@ ZDL.Icon = ZDL.Icon || {};
     Game_System.prototype.initialize = function()
     {
         ZDL.Core.Init.call(this);
-        // console.log("my plugin initialized!");
     };
     Game_Interpreter.prototype.pluginCommand = function(command, args) {
         ZDL.Core.Game_Interpreter_pluginCommand.call(this, command, args);
@@ -179,6 +180,21 @@ ZDL.Icon = ZDL.Icon || {};
                         }
                     }
             });
-        }
+         }else if(command=="autoSetBackground"&&args.length>=1){
+            var index = parseInt(args[0]);
+            var pic = $gameScreen._pictures[index];
+            ImageManager.loadPicture(pic._name).addLoadListener(function(bitmap){
+                    var i_w = bitmap.width;
+                    var i_h = bitmap.height;
+                    var g_w = Graphics.width;
+                    var g_h = Graphics.height;
+                    var ratio_1 = i_w / i_h;
+                    var ratio_2 = g_w / g_h;
+
+                    Game_Interpreter.prototype.pluginCommand.call(null,"scalePictureByRatio",[index,"100",ratio_1 > ratio_2? "y":"x"]);
+                    Game_Interpreter.prototype.pluginCommand.call(null,"movePictureByRatio",[index,"0","c","c","x"]);
+                    Game_Interpreter.prototype.pluginCommand.call(null,"movePictureByRatio",[index,"0","c","c","y"]);
+            });
+         }
     };
 })();
